@@ -435,3 +435,10 @@ h1,h2,h3{ font-family: var(--font-display); font-weight: var(--display-weight); 
   font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.72rem; letter-spacing:.04em;
   padding:14px 16px; text-transform:lowercase;
 }
+
+
+/* Portrait photo — natural ratio, scales with the site, no cropping */
+.about__portrait img.portrait{
+  width:100%; height:auto; display:block;
+  box-shadow:0 30px 70px -34px rgba(0,0,0,.5);
+}
