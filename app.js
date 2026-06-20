@@ -86,6 +86,31 @@
   }
   document.querySelectorAll('[data-ba]').forEach(initBA);
 
+  /* ---- mobile menu ---- */
+  var navEl = document.querySelector('.nav');
+  var toggle = document.querySelector('.nav__toggle');
+  var navLinks = document.getElementById('navLinks');
+  function setMenu(open){
+    if(!navEl || !toggle) return;
+    navEl.setAttribute('data-open', open ? '1' : '0');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  if(toggle){
+    toggle.addEventListener('click', function(){
+      setMenu(navEl.getAttribute('data-open') !== '1');
+    });
+  }
+  if(navLinks){
+    navLinks.addEventListener('click', function(e){
+      if(e.target.closest('a')) setMenu(false);
+    });
+  }
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') setMenu(false); });
+  document.addEventListener('click', function(e){
+    if(navEl && navEl.getAttribute('data-open') === '1' && !e.target.closest('.nav')) setMenu(false);
+  });
+  window.addEventListener('resize', function(){ if(window.innerWidth > 880) setMenu(false); }, { passive:true });
+
   /* ---- year ---- */
   var y = document.getElementById('year');
   if(y) y.textContent = new Date().getFullYear();

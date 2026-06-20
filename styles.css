@@ -442,3 +442,59 @@ h1,h2,h3{ font-family: var(--font-display); font-weight: var(--display-weight); 
   width:100%; height:auto; display:block;
   box-shadow:0 30px 70px -34px rgba(0,0,0,.5);
 }
+
+
+/* ============================================================
+   MOBILE NAV + RESPONSIVE SAFETY
+   ============================================================ */
+html, body{ overflow-x: hidden; }
+img, svg, video{ max-width: 100%; }
+
+.nav__toggle{
+  display:none; width:44px; height:44px; padding:0; margin:0;
+  background:transparent; border:0; cursor:pointer;
+  flex-direction:column; align-items:center; justify-content:center; gap:5px;
+}
+.nav__toggle span{ display:block; width:22px; height:2px; background:var(--ink); transition: transform .3s ease, opacity .2s ease; }
+.nav[data-open="1"] .nav__toggle span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+.nav[data-open="1"] .nav__toggle span:nth-child(2){ opacity:0; }
+.nav[data-open="1"] .nav__toggle span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+.nav__links .nav__links-cta{ display:none; }
+
+@media (max-width: 880px){
+  .nav__toggle{ display:flex; }
+  .nav__links{
+    display:flex; position:absolute; top:100%; left:0; right:0;
+    flex-direction:column; align-items:stretch; gap:0;
+    background: var(--paper); border-bottom:1px solid var(--line);
+    box-shadow: 0 24px 40px -24px rgba(0,0,0,.4);
+    padding-inline: var(--gutter);
+    max-height:0; opacity:0; overflow:hidden; pointer-events:none;
+    transition: max-height .35s ease, opacity .25s ease, padding .35s ease;
+    padding-block:0;
+  }
+  .nav[data-open="1"] .nav__links{
+    max-height: 85vh; opacity:1; pointer-events:auto; padding-block:.25rem 1.1rem;
+  }
+  .nav__links a{ padding:.95rem .2rem; font-size:1.05rem; border-bottom:1px solid var(--line); }
+  .nav__links a::after{ display:none; }
+  .nav__links a:nth-last-child(2){ border-bottom:0; }
+  .nav__links .nav__links-cta{
+    display:inline-flex; justify-content:center; margin-top:1.1rem;
+    padding:.95rem 1.2rem; font-size:.95rem; border-bottom:0;
+  }
+}
+
+/* collapse the remaining two-column blocks on small screens */
+@media (max-width: 760px){
+  .head--split{ grid-template-columns:1fr; align-items:start; }
+  .band__inner{ grid-template-columns:1fr; }
+}
+
+
+/* hide hero image + material pills once the hamburger menu kicks in */
+@media (max-width: 880px){
+  .hero__grid{ grid-template-columns: 1fr; }
+  .hero__figure{ display: none; }
+  .band__materials{ display: none; }
+}
